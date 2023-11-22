@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+option go_package = "github.com/romil93/grpc-service/logger";
+option java_multiple_files = true;
+option java_package = "com.github.romil93.grpc-service.logger";
+option java_outer_classname = "LoggerProto";
+
+package logger;
+
+// Interface exported by the server.
+service Logger {
+  // A simple RPC.
+  rpc LogMessage(LoggerMessage) returns (Status) {}
+
+  // // A server-to-client streaming RPC.
+  // rpc LogLoggerMessageStream(LoggerMessage) returns (stream Status) {}
+
+  // // A client-to-server streaming RPC.
+  // rpc StreamLogLoggerMessage(stream LoggerMessage) returns (Status) {}
+
+  // // A Bidirectional streaming RPC.
+  // rpc StreamLogLoggerMessageStream(stream LoggerMessage) returns (stream LoggerMessage) {}
+}
+
+message LoggerMessage {
+  string use_case = 1;
+  string log = 2;
+}
+
+message Status {
+  enum StatusCode {
+    UNKOWN = 0;
+    OK = 1;
+    NOT_OK = 2;
+  }
+  StatusCode status_code = 1;
+  repeated string errors = 2;
+}
